@@ -364,3 +364,36 @@ renderRisk();
 renderPortfolio();
 renderBacktest();
 renderAblation();
+
+// ── RUN PIPELINE BUTTON ─────────────────────────────────────────
+const runBtn = document.getElementById('run-pipeline-btn');
+if (runBtn) {
+  runBtn.addEventListener('click', async () => {
+    if (window.location.protocol !== 'http:') {
+      alert("⚠️ Error: The pipeline can only be run locally.\n\nPlease clone the repository and run 'python run_server.py', then open http://localhost:8080 to use this button.");
+      return;
+    }
+    
+    runBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Running Agents...';
+    runBtn.style.opacity = '0.7';
+    runBtn.disabled = true;
+    
+    try {
+      const response = await fetch('/api/run_pipeline', { method: 'POST' });
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        alert("✅ Pipeline execution completed successfully!\n\nThe page will now reload to show the updated data.");
+        window.location.reload();
+      } else {
+        alert("❌ Error running pipeline:\n\n" + data.output);
+      }
+    } catch (e) {
+      alert("❌ Server connection failed. Make sure you are running 'python run_server.py'.");
+    } finally {
+      runBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Run Pipeline';
+      runBtn.style.opacity = '1';
+      runBtn.disabled = false;
+    }
+  });
+}
