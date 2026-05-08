@@ -81,7 +81,7 @@ FIN580/
 ### 1. Clone & Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/FIN580.git
+git clone https://github.com/francislin871206/FIN580.git
 cd FIN580
 
 # Create virtual environment
