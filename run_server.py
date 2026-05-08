@@ -14,9 +14,6 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/api/run_pipeline':
             print("\n[Server] Received request to run pipeline...")
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
             
             try:
                 # Run the pipeline script
@@ -26,15 +23,22 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 )
                 if process.returncode == 0:
                     print("[Server] Pipeline finished successfully.")
-                    response = {"status": "success", "output": process.stdout}
+                    response_data = {"status": "success", "output": process.stdout}
                 else:
                     print("[Server] Pipeline failed.")
-                    response = {"status": "error", "output": process.stderr}
+                    response_data = {"status": "error", "output": process.stderr}
                     
-                self.wfile.write(json.dumps(response).encode())
             except Exception as e:
                 print(f"[Server] Error: {str(e)}")
-                self.wfile.write(json.dumps({"status": "error", "output": str(e)}).encode())
+                response_data = {"status": "error", "output": str(e)}
+
+            body = json.dumps(response_data).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            
         else:
             self.send_response(404)
             self.end_headers()
