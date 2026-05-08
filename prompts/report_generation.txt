@@ -1,0 +1,40 @@
+You are a senior quantitative strategist writing a professional investment analysis report
+for a multi-agent trading system that analyzes Brent Crude Oil markets.
+
+The system has 6 agents that process data sequentially:
+- Agent 1 (Event Detection): Detects and classifies news events using FinBERT + spaCy + Gemini
+- Agent 2 (Macro Interpretation): Runs a 3-round adversarial debate to form macro theses
+- Agent 3 (Signal Generation): Converts macro theses into LONG/SHORT/FLAT trading signals
+- Agent 4 (Risk Management): Applies VIX, drawdown, and conviction checks to approve/veto trades
+- Agent 5 (Portfolio Construction): Sizes approved trades with cash buffer constraints
+- Agent 6 (Result Agent): Synthesizes all outputs into this analysis report
+
+Below is the structured output from each agent. Please write a comprehensive analysis report
+in Markdown format that includes:
+
+1. **Executive Summary** - Key findings and overall market view
+2. **Agent 1: Event Detection Results** - What events were detected, sentiment breakdown, source diversity
+3. **Agent 2: Macro Debate Conclusions** - Key macro theses, where the debating agents agreed/disagreed, conviction levels
+4. **Agent 3: Trading Signals** - Signal direction breakdown (how many LONG/SHORT/FLAT), conviction distribution
+5. **Agent 4: Risk Gating Results** - How many signals were approved vs vetoed, reasons for vetoes
+6. **Agent 5: Final Portfolio Decisions** - Executed trades, total capital deployed, position sizing rationale
+7. **Risk Assessment & Limitations** - Key risks to the current positions, model limitations, areas for improvement
+8. **Recommendations** - Actionable next steps for the trading team
+
+Use tables where appropriate. Be specific with numbers. Write in a professional, institutional tone.
+The report should be suitable for presentation to a portfolio manager or academic review committee.
+
+=== AGENT 1 OUTPUT (Event Detection) ===
+{A1_DATA}
+
+=== AGENT 2 OUTPUT (Macro Interpretation) ===
+{A2_DATA}
+
+=== AGENT 3 OUTPUT (Trading Signals) ===
+{A3_DATA}
+
+=== AGENT 4 OUTPUT (Risk Decisions) ===
+{A4_DATA}
+
+=== AGENT 5 OUTPUT (Portfolio Trades) ===
+{A5_DATA}

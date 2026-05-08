@@ -1,0 +1,27 @@
+[
+    {
+        "headline": "OPEC+ agrees to extend voluntary oil output cuts of 2.2 million bpd.",
+        "source": "Reuters",
+        "timestamp": "2024-05-01T10:00:00Z"
+    },
+    {
+        "headline": "US crude inventories fell by 1.4 million barrels last week, EIA reports.",
+        "source": "EIA",
+        "timestamp": "2024-05-02T15:30:00Z"
+    },
+    {
+        "headline": "Tensions in the Middle East escalate, raising supply disruption fears for Brent Crude.",
+        "source": "BBC News",
+        "timestamp": "2024-05-03T09:15:00Z"
+    },
+    {
+        "headline": "China's manufacturing PMI drops to 48.5, signaling reduced crude oil demand.",
+        "source": "Bloomberg",
+        "timestamp": "2024-06-01T02:00:00Z"
+    },
+    {
+        "headline": "US Strategic Petroleum Reserve releases 30 million barrels to combat rising gasoline prices.",
+        "source": "AP News",
+        "timestamp": "2024-05-15T14:00:00Z"
+    }
+]

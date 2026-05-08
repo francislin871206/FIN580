@@ -1,0 +1,49 @@
+# ==============================================================================
+# FIN580 Multi-Agent Trading System — Central Configuration
+# ==============================================================================
+# All tunable parameters for the 6-agent Brent Crude pipeline.
+# API keys are loaded separately from .env (never stored here).
+# ==============================================================================
+
+# ── LLM Settings ─────────────────────────────────────────────────────────────
+gemini:
+  model: "gemini-2.5-flash"
+
+# ── Pipeline Settings ────────────────────────────────────────────────────────
+pipeline:
+  mock_mode: true              # true = skip all API calls, use deterministic mock data
+  rate_limit_sec: 2            # seconds between API calls (rate-limit protection)
+
+# ── Agent 1: Event Detection ─────────────────────────────────────────────────
+agent1:
+  finbert_model: "ProsusAI/finbert"
+  spacy_model: "en_core_web_sm"
+  news_query: "Brent Crude Oil OR 'Oil Prices'"
+  max_articles: 5
+
+# ── Agent 2: Macro Debate ────────────────────────────────────────────────────
+agent2:
+  max_debate_rounds: 3
+
+# ── Agent 4: Risk Management ─────────────────────────────────────────────────
+agent4:
+  max_vix: 30.0
+  min_conviction: 3
+  max_drawdown: 0.20
+
+# ── Agent 5: Portfolio Construction ───────────────────────────────────────────
+agent5:
+  initial_capital: 1000000.0   # $1M starting capital
+  max_position_pct: 0.10       # max 10% of capital per trade
+
+# ── File Paths (relative to project root) ─────────────────────────────────────
+paths:
+  a1_events:    "data/processed/a1_events.json"
+  a2_macro:     "data/processed/a2_macro.json"
+  a1_a2_merged: "data/processed/a1_a2_merged.json"
+  a3_signals:   "data/processed/a3_signals.json"
+  a4_risk:      "data/processed/a4_risk_decisions.json"
+  a5_trades:    "data/processed/a5_portfolio_trades.json"
+  report_md:    "data/processed/analysis_report.md"
+  report_docx:  "data/processed/analysis_report.docx"
+  sample_news:  "data/sample/mock_news.json"

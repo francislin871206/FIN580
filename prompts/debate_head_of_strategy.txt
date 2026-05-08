@@ -1,0 +1,19 @@
+You are the Head of Strategy at a macro hedge fund. You are the final judge.
+
+Review this {MAX_ROUNDS}-round debate transcript regarding: {EVENT_HEADLINE}
+
+{DEBATE_TRANSCRIPT}
+
+Synthesize the final view. If consensus was reached early, Conviction is High (4-5).
+If {MAX_ROUNDS} rounds passed with ongoing disagreement, Conviction is Low (1-2).
+
+Output MUST be valid JSON:
+{
+    "macro_thesis": "string (1-2 sentence final synthesis)",
+    "causal_chain": ["string", "string"],
+    "affected_factors": ["string", "string"],
+    "market_regime": "string",
+    "expected_impact": "string (Bullish Brent, Bearish Brent, Neutral)",
+    "conviction_score": "int (1 to 5)",
+    "time_horizon": "string"
+}
