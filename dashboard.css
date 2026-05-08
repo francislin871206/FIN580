@@ -36,6 +36,14 @@ body {
 .accent { color: var(--blue); }
 .topbar-sub { font-size: .75rem; color: var(--text3); letter-spacing: 1px; margin-top: 2px; }
 .topbar-right { display: flex; align-items: center; gap: 20px; }
+.topnav { display: flex; gap: 4px; }
+.nav-link {
+  padding: 6px 14px; border-radius: 8px; font-size: .75rem;
+  font-weight: 500; color: var(--text3); text-decoration: none;
+  letter-spacing: .5px; transition: all .2s;
+}
+.nav-link:hover { color: var(--text); background: rgba(255,255,255,.05); }
+.nav-link.active { color: var(--blue); background: rgba(59,130,246,.1); }
 .status-pill {
   display: flex; align-items: center; gap: 8px;
   padding: 6px 14px; border-radius: 20px; font-size: .7rem;

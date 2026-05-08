@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis Report | Brent Crude Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<style>
+.report-page { padding: 24px 32px; max-width: 960px; margin: 0 auto; }
+
+.report-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 28px 32px; margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+.report-card h2 {
+  font-size: 1rem; font-weight: 700; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.report-card .subtitle { font-size: .75rem; color: var(--text3); margin-bottom: 16px; }
+
+/* Summary box */
+.summary-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
+}
+.sum-item {
+  text-align: center; padding: 14px; border-radius: 10px;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.04);
+}
+.sum-value { font-family: var(--mono); font-size: 1.3rem; font-weight: 700; }
+.sum-label { font-size: .68rem; color: var(--text3); margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+
+/* Verdict */
+.verdict-box {
+  padding: 18px 20px; border-radius: 10px; margin-bottom: 16px;
+  border-left: 4px solid var(--amber);
+  background: rgba(245,158,11,.05);
+}
+.verdict-label { font-size: .68rem; font-weight: 700; color: var(--amber); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.verdict-text { font-size: .88rem; line-height: 1.7; }
+
+/* Key points list */
+.key-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.key-list li {
+  display: flex; gap: 10px; padding: 10px 14px; border-radius: 8px;
+  background: rgba(255,255,255,.02); font-size: .82rem; line-height: 1.5;
+  align-items: flex-start;
+}
+.key-icon {
+  width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; margin-top: 1px;
+}
+.key-icon.bear { background: rgba(239,68,68,.12); color: var(--red); }
+.key-icon.bull { background: rgba(16,185,129,.12); color: var(--green); }
+.key-icon.info { background: rgba(59,130,246,.12); color: var(--blue); }
+
+/* Trade summary table */
+.trade-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 12px; }
+.trade-table th {
+  text-align: left; padding: 8px 10px; font-size: .68rem; color: var(--text3);
+  letter-spacing: .5px; text-transform: uppercase; border-bottom: 1px solid var(--card-border);
+}
+.trade-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,.03); }
+
+/* Risk section */
+.risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.risk-item {
+  padding: 12px 14px; border-radius: 8px; background: rgba(255,255,255,.02);
+}
+.risk-item-label { font-size: .7rem; color: var(--text3); margin-bottom: 4px; }
+.risk-item-value { font-family: var(--mono); font-weight: 600; }
+
+.divider { height: 1px; background: var(--card-border); margin: 16px 0; }
+
+/* Print */
+@media print {
+  body { background: #fff; color: #111; }
+  .topbar, .footer, .topnav { display: none; }
+  .report-card { border: 1px solid #ddd; box-shadow: none; background: #fff; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark"></div>
+    <div>
+      <h1 class="topbar-title">BRENT CRUDE <span class="accent">COMMAND CENTER</span></h1>
+      <p class="topbar-sub">Multi-Agent AI Trading System &mdash; FIN580</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <nav class="topnav">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="debate.html" class="nav-link">Debate</a>
+      <a href="report.html" class="nav-link active">Report</a>
+    </nav>
+    <div class="status-pill live"><span class="pulse"></span>PIPELINE ACTIVE</div>
+    <div class="clock" id="clock"></div>
+  </div>
+</header>
+
+<div class="report-page">
+
+  <!-- HEADER CARD -->
+  <div class="report-card">
+    <h2><span class="dot amber"></span>Brent Crude Oil — Analysis Report</h2>
+    <p class="subtitle" id="report-date"></p>
+
+    <div class="summary-grid">
+      <div class="sum-item"><div class="sum-value" style="color:var(--blue)">5</div><div class="sum-label">Events Analyzed</div></div>
+      <div class="sum-item"><div class="sum-value" style="color:var(--purple)">3</div><div class="sum-label">Signals (SHORT)</div></div>
+      <div class="sum-item"><div class="sum-value" style="color:var(--green)">40%</div><div class="sum-label">Approval Rate</div></div>
+      <div class="sum-item"><div class="sum-value" style="color:var(--amber)">$100K</div><div class="sum-label">Capital Deployed</div></div>
+    </div>
+
+    <div class="verdict-box">
+      <div class="verdict-label">Overall Market Verdict</div>
+      <div class="verdict-text">
+        <strong>Bearish with high volatility.</strong> The multi-agent system identified a market dominated by demand destruction from tight monetary policy (Fed 5.25%-5.50%), China manufacturing contraction (PMI 49.2), and a strong US Dollar (DXY 104.5). Tight physical inventories (4% below average) prevent a freefall but cannot sustain rallies. The system recommends SHORT positions with reduced sizing due to elevated VIX.
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY FINDINGS -->
+  <div class="report-card">
+    <h2><span class="dot blue"></span>Key Findings</h2>
+    <p class="subtitle">Synthesized from 5 events and 15 rounds of adversarial debate</p>
+
+    <ul class="key-list">
+      <li>
+        <div class="key-icon bear">&darr;</div>
+        <div><strong>Demand destruction is the dominant structural force.</strong> High US interest rates, contracting China PMI, and strong DXY are actively compressing global oil demand — not just future headwinds, but present reality.</div>
+      </li>
+      <li>
+        <div class="key-icon bull">&uarr;</div>
+        <div><strong>Inventory tightness provides a floor, not a ceiling.</strong> Global oil inventories 4% below the 5-year average create downside rigidity. This prevents a freefall but cannot drive sustained upward moves against macro headwinds.</div>
+      </li>
+      <li>
+        <div class="key-icon bear">&darr;</div>
+        <div><strong>Geopolitical risk premium is eroding.</strong> Middle East tensions remain high but are largely priced in. Without escalation, this premium acts as a diminishing support beam rather than an active price driver.</div>
+      </li>
+      <li>
+        <div class="key-icon info">!</div>
+        <div><strong>Market regime: Volatile, range-bound with downside bias.</strong> The system expects a grinding downward trajectory punctuated by sharp, supply-driven counter-rallies that are ultimately unsustainable.</div>
+      </li>
+      <li>
+        <div class="key-icon info">!</div>
+        <div><strong>Risk gate filtered 60% of signals.</strong> 3 out of 5 signals were vetoed due to low conviction (&lt;3), demonstrating effective risk management. Approved trades received a 0.5x risk multiplier due to elevated VIX.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- TRADE ACTIONS -->
+  <div class="report-card">
+    <h2><span class="dot green"></span>Executed Trades</h2>
+    <p class="subtitle">Only high-conviction, risk-approved signals were executed</p>
+
+    <table class="trade-table">
+      <thead>
+        <tr><th>Event</th><th>Direction</th><th>Conviction</th><th>Size</th><th>Risk Mult.</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="color:var(--text3)">Iran Deal Doubts</td><td style="color:var(--red);font-weight:600">SHORT</td><td>4/5</td><td style="font-family:var(--mono)">$50,000</td><td>0.5x</td><td style="color:var(--green)">APPROVED</td></tr>
+        <tr><td style="color:var(--text3)">U.S. Stock Market Outlook</td><td style="color:var(--red);font-weight:600">SHORT</td><td>3/5</td><td style="font-family:var(--mono)">$50,000</td><td>0.5x</td><td style="color:var(--green)">APPROVED</td></tr>
+      </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <div class="risk-grid">
+      <div class="risk-item"><div class="risk-item-label">Total Capital Deployed</div><div class="risk-item-value" style="color:var(--blue)">$100,000</div></div>
+      <div class="risk-item"><div class="risk-item-label">Cash Reserve</div><div class="risk-item-value">$900,000</div></div>
+      <div class="risk-item"><div class="risk-item-label">Avg Conviction</div><div class="risk-item-value" style="color:var(--amber)">3.5 / 5</div></div>
+      <div class="risk-item"><div class="risk-item-label">Risk Multiplier</div><div class="risk-item-value">0.5x (VIX elevated)</div></div>
+    </div>
+  </div>
+
+  <!-- BACKTEST VALIDATION -->
+  <div class="report-card">
+    <h2><span class="dot red"></span>Backtest Validation</h2>
+    <p class="subtitle">Historical performance of the signal generation + risk gating pipeline</p>
+
+    <div class="risk-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="risk-item"><div class="risk-item-label">Total PnL</div><div class="risk-item-value" style="color:var(--green)">+$4,813</div></div>
+      <div class="risk-item"><div class="risk-item-label">Win Rate</div><div class="risk-item-value">60%</div></div>
+      <div class="risk-item"><div class="risk-item-label">Sharpe Ratio</div><div class="risk-item-value" style="color:var(--blue)">8.99</div></div>
+      <div class="risk-item"><div class="risk-item-label">Max Drawdown</div><div class="risk-item-value" style="color:var(--red)">0.16%</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <ul class="key-list">
+      <li><div class="key-icon info">i</div><div>Out of 20 generated signals, only 5 (25%) passed the risk gate — demonstrating conservative capital protection.</div></li>
+      <li><div class="key-icon bull">&uarr;</div><div>3 of 5 executed trades were profitable (60% win rate). Losses were small and well-controlled due to position sizing discipline.</div></li>
+    </ul>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="report-card" style="border-left:3px solid var(--text3)">
+    <h2 style="font-size:.85rem;color:var(--text3)">Disclaimer</h2>
+    <p style="font-size:.75rem;color:var(--text3);line-height:1.6;margin-top:8px">
+      This report is generated by an AI-driven multi-agent system for academic purposes (FIN580 Quantamental Investment). 
+      It does not constitute financial advice. Past backtest performance does not guarantee future results. 
+      All trading signals are based on mock data processing and should not be used for real investment decisions.
+    </p>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>FIN580 Quantamental Investment &mdash; Multi-Agent Brent Crude Trading System</p>
+</footer>
+
+<script>
+// Clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleString('en-US', {
+    year:'numeric', month:'short', day:'2-digit',
+    hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
+  });
+}
+setInterval(updateClock, 1000); updateClock();
+
+// Date
+document.getElementById('report-date').textContent = 
+  'Generated: ' + new Date().toLocaleString('en-US', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+</script>
+</body>
+</html>

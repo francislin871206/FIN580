@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Debate Transcripts | Brent Crude Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<style>
+/* ── DEBATE PAGE SPECIFIC ────────────────────────── */
+.debate-page { padding: 24px 32px; max-width: 1200px; margin: 0 auto; }
+.debate-header { margin-bottom: 24px; }
+.debate-header h2 { font-size: 1.2rem; font-weight: 700; }
+.debate-header p { font-size: .8rem; color: var(--text3); margin-top: 4px; }
+
+.event-selector {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+}
+.evt-btn {
+  padding: 10px 16px; border-radius: 10px; border: 1px solid var(--card-border);
+  background: var(--card); color: var(--text2); cursor: pointer;
+  font-family: var(--font); font-size: .75rem; transition: all .2s;
+  display: flex; flex-direction: column; gap: 4px; min-width: 200px;
+}
+.evt-btn:hover { border-color: rgba(59,130,246,.3); background: rgba(59,130,246,.05); }
+.evt-btn.active { border-color: var(--blue); background: rgba(59,130,246,.1); color: var(--text); }
+.evt-btn-id { font-family: var(--mono); font-size: .65rem; color: var(--text3); }
+.evt-btn-title { font-weight: 600; font-size: .78rem; line-height: 1.3; }
+.evt-btn-impact {
+  font-size: .6rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+  align-self: flex-start; margin-top: 2px;
+}
+.evt-btn-impact.bearish { background: rgba(239,68,68,.12); color: var(--red); }
+.evt-btn-impact.neutral { background: rgba(148,163,184,.12); color: var(--text2); }
+.evt-btn-impact.bullish { background: rgba(16,185,129,.12); color: var(--green); }
+
+/* Debate panel */
+.debate-panel {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 24px; min-height: 400px;
+}
+.debate-meta {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--card-border);
+}
+.meta-chip {
+  font-size: .72rem; padding: 5px 12px; border-radius: 8px;
+  background: rgba(255,255,255,.04); color: var(--text2);
+}
+.meta-chip b { color: var(--text); }
+
+.debate-transcript { display: flex; flex-direction: column; gap: 16px; }
+.debate-round {
+  border-radius: 12px; padding: 16px 18px;
+  border-left: 3px solid transparent;
+}
+.debate-round.primary {
+  background: rgba(59,130,246,.04); border-left-color: var(--blue);
+}
+.debate-round.advocate {
+  background: rgba(239,68,68,.04); border-left-color: var(--red);
+}
+.debate-round.judge {
+  background: rgba(245,158,11,.06); border-left-color: var(--amber);
+}
+.round-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.round-role {
+  font-size: .7rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+}
+.round-role.primary { color: var(--blue); }
+.round-role.advocate { color: var(--red); }
+.round-role.judge { color: var(--amber); }
+.round-num {
+  font-family: var(--mono); font-size: .6rem; color: var(--text3);
+  padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,.05);
+}
+.round-text {
+  font-size: .8rem; line-height: 1.7; color: var(--text2);
+  white-space: pre-wrap;
+}
+.round-text strong { color: var(--text); }
+
+.thesis-box {
+  margin-top: 20px; padding: 16px; border-radius: 10px;
+  background: rgba(245,158,11,.06); border: 1px solid rgba(245,158,11,.15);
+}
+.thesis-label { font-size: .68rem; color: var(--amber); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.thesis-text { font-size: .85rem; line-height: 1.6; font-weight: 500; }
+</style>
+</head>
+<body>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark"></div>
+    <div>
+      <h1 class="topbar-title">BRENT CRUDE <span class="accent">COMMAND CENTER</span></h1>
+      <p class="topbar-sub">Multi-Agent AI Trading System &mdash; FIN580</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <nav class="topnav">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="debate.html" class="nav-link active">Debate</a>
+      <a href="report.html" class="nav-link">Report</a>
+    </nav>
+    <div class="status-pill live"><span class="pulse"></span>PIPELINE ACTIVE</div>
+    <div class="clock" id="clock"></div>
+  </div>
+</header>
+
+<div class="debate-page">
+  <div class="debate-header">
+    <h2>Agent 2: Macro Debate Transcripts</h2>
+    <p>3-round adversarial debate between Primary Analyst, Devil's Advocate, and Head of Strategy</p>
+  </div>
+
+  <div class="event-selector" id="event-selector"></div>
+  <div class="debate-panel" id="debate-panel">
+    <p style="color:var(--text3);text-align:center;padding:40px">Select an event above to view its debate transcript</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>FIN580 Quantamental Investment &mdash; Multi-Agent Brent Crude Trading System</p>
+</footer>
+
+<script src="debate.js"></script>
+</body>
+</html>
