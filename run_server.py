@@ -45,7 +45,7 @@ if __name__ == "__main__":
     
     with socketserver.TCPServer(("", PORT), DashboardHandler) as httpd:
         print("="*60)
-        print("🚀 BRENT CRUDE COMMAND CENTER - LOCAL SERVER 🚀")
+        print(">>> BRENT CRUDE COMMAND CENTER - LOCAL SERVER <<<")
         print("="*60)
         print(f"Server is running at: http://localhost:{PORT}")
         print("Press Ctrl+C to stop.")
