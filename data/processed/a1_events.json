@@ -1,0 +1,83 @@
+[
+    {
+        "event_id": "EVT_65CA4735",
+        "timestamp": "2026-05-07T16:16:09Z",
+        "headline": "Trump Admits \u201cI Expected Oil to Hit $200\u201d Over Iran\u2014 Here\u2019s How Close Investors Came to Disaster",
+        "event_type": "Geopolitical Tension",
+        "category": "Geopolitics",
+        "entities": [
+            "Iran"
+        ],
+        "directional_bias": "Bullish Brent",
+        "confidence_score": 0.9,
+        "source": "24/7 Wall St.",
+        "sentiment_score": 0.0,
+        "raw_text": "Trump Admits \u201cI Expected Oil to Hit $200\u201d Over Iran\u2014 Here\u2019s How Close Investors Came to Disaster",
+        "processing_timestamp": "2026-05-08T16:19:11.799548+00:00"
+    },
+    {
+        "event_id": "EVT_16ED33FC",
+        "timestamp": "2026-05-07T15:45:20Z",
+        "headline": "Oil prices fall below $100 a barrel over Middle East peace hopes: When will petrol prices drop?",
+        "event_type": "Geopolitical De-escalation",
+        "category": "Geopolitics",
+        "entities": [],
+        "directional_bias": "Bearish Brent",
+        "confidence_score": 0.95,
+        "source": "Dailymail.com",
+        "sentiment_score": -0.5689347386360168,
+        "raw_text": "Oil prices fall below $100 a barrel over Middle East peace hopes: When will petrol prices drop?",
+        "processing_timestamp": "2026-05-08T16:19:18.348902+00:00"
+    },
+    {
+        "event_id": "EVT_2659B22F",
+        "timestamp": "2026-05-07T15:13:23Z",
+        "headline": "Iran reviewing U.S. proposal as Trump pressures Tehran for agreement on deal to end war",
+        "event_type": "Geopolitical Tension",
+        "category": "Geopolitics",
+        "entities": [
+            "Iran",
+            "U.S.",
+            "Trump",
+            "Tehran"
+        ],
+        "directional_bias": "Bullish Brent",
+        "confidence_score": 0.9,
+        "source": "PBS",
+        "sentiment_score": -0.7933028936386108,
+        "raw_text": "Iran reviewing U.S. proposal as Trump pressures Tehran for agreement on deal to end war",
+        "processing_timestamp": "2026-05-08T16:19:22.838041+00:00"
+    },
+    {
+        "event_id": "EVT_11FF5690",
+        "timestamp": "2026-05-07T14:51:36Z",
+        "headline": "VIX Stands Firm as Fear Drains, Stocks Chase Records and Earnings Keep Dip-Buyers Engaged",
+        "event_type": "Demand Shift",
+        "category": "Macroeconomics",
+        "entities": [
+            "Chase Records"
+        ],
+        "directional_bias": "Bearish Brent",
+        "confidence_score": 0.85,
+        "source": "24/7 Wall St.",
+        "sentiment_score": -0.65345299243927,
+        "raw_text": "VIX Stands Firm as Fear Drains, Stocks Chase Records and Earnings Keep Dip-Buyers Engaged",
+        "processing_timestamp": "2026-05-08T16:19:29.179284+00:00"
+    },
+    {
+        "event_id": "EVT_BA35E08F",
+        "timestamp": "2026-05-07T14:51:19Z",
+        "headline": "Oil Prices Keep Falling, While U.S. Stocks Hang Near Their Record Highs",
+        "event_type": "Price Trend",
+        "category": "Market Dynamics",
+        "entities": [
+            "U.S."
+        ],
+        "directional_bias": "Bearish Brent",
+        "confidence_score": 0.98,
+        "source": "HuffPost",
+        "sentiment_score": -0.9467950463294983,
+        "raw_text": "Oil Prices Keep Falling, While U.S. Stocks Hang Near Their Record Highs",
+        "processing_timestamp": "2026-05-08T16:19:40.428561+00:00"
+    }
+]

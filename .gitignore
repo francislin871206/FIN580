@@ -43,7 +43,7 @@ Thumbs.db
 # Project-Specific
 # ──────────────────────────────────────────────────────────────────────────────
 # Pipeline outputs (regenerated on each run)
-data/processed/*
+# data/processed/*
 !data/processed/.gitkeep
 
 # Runtime logs
@@ -57,9 +57,9 @@ logs/*
 Backup/
 
 # Old agent files at project root (now in agents/)
-Agent1_event_agent.py
-Agent2_macro_agent.py
-Agent3_signal_agent.py
-Agent4_risk_agent.py
-Agent5_portfolio_agent.py
-Agent6_result_agent.py
+# Agent1_event_agent.py
+# Agent2_macro_agent.py
+# Agent3_signal_agent.py
+# Agent4_risk_agent.py
+# Agent5_portfolio_agent.py
+# Agent6_result_agent.py
