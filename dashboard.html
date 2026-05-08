@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brent Crude Multi-Agent Trading System | Command Center</title>
+<meta name="description" content="Institutional-grade multi-agent AI trading dashboard for Brent Crude Oil">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark"></div>
+    <div>
+      <h1 class="topbar-title">BRENT CRUDE <span class="accent">COMMAND CENTER</span></h1>
+      <p class="topbar-sub">Multi-Agent AI Trading System &mdash; FIN580</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="status-pill live"><span class="pulse"></span>PIPELINE ACTIVE</div>
+    <div class="clock" id="clock"></div>
+  </div>
+</header>
+
+<!-- KPI STRIP -->
+<section class="kpi-strip">
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#3b82f6">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Events Detected</div><div class="kpi-value" id="kpi-events">5</div></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#8b5cf6">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Signals Generated</div><div class="kpi-value" id="kpi-signals">5</div></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#10b981">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Approval Rate</div><div class="kpi-value" id="kpi-approval">40%</div></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#f59e0b">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Capital Deployed</div><div class="kpi-value" id="kpi-capital">$50,000</div></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#ef4444">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Backtest PnL</div><div class="kpi-value pnl-positive" id="kpi-pnl">+$4,813</div></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-icon" style="--c:#06b6d4">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    </div>
+    <div class="kpi-body"><div class="kpi-label">Sharpe Ratio</div><div class="kpi-value" id="kpi-sharpe">8.99</div></div>
+  </div>
+</section>
+
+<!-- PIPELINE FLOW -->
+<section class="pipeline-section">
+  <h2 class="section-title">Agent Pipeline Flow</h2>
+  <div class="pipeline-flow">
+    <div class="pipe-node active" data-agent="1"><div class="pipe-num">A1</div><div class="pipe-label">Event Detection</div><div class="pipe-tech">FinBERT + spaCy + Gemini</div></div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node active" data-agent="2"><div class="pipe-num">A2</div><div class="pipe-label">Macro Debate</div><div class="pipe-tech">3-Round Adversarial</div></div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node active" data-agent="3"><div class="pipe-num">A3</div><div class="pipe-label">Signal Gen</div><div class="pipe-tech">Rule-Based</div></div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node active" data-agent="4"><div class="pipe-num">A4</div><div class="pipe-label">Risk Mgmt</div><div class="pipe-tech">VIX + Conviction Gate</div></div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node active" data-agent="5"><div class="pipe-num">A5</div><div class="pipe-label">Portfolio</div><div class="pipe-tech">Position Sizing</div></div>
+    <div class="pipe-arrow"></div>
+    <div class="pipe-node active" data-agent="6"><div class="pipe-num">A6</div><div class="pipe-label">Report</div><div class="pipe-tech">Gemini Synthesis</div></div>
+  </div>
+</section>
+
+<!-- MAIN GRID -->
+<main class="grid-main">
+  <!-- LEFT: EVENT FEED -->
+  <section class="card card-events">
+    <h2 class="card-title"><span class="dot blue"></span>Event Feed <span class="badge">5 events</span></h2>
+    <div class="event-list" id="event-list"></div>
+  </section>
+
+  <!-- RIGHT: SIGNAL BREAKDOWN -->
+  <section class="card card-signals">
+    <h2 class="card-title"><span class="dot purple"></span>Signal Breakdown</h2>
+    <div class="signal-grid">
+      <div class="chart-wrap"><canvas id="signalChart"></canvas></div>
+      <div class="signal-stats" id="signal-stats"></div>
+    </div>
+  </section>
+
+  <!-- LEFT: MACRO THESES -->
+  <section class="card card-macro">
+    <h2 class="card-title"><span class="dot amber"></span>Macro Debate Conclusions</h2>
+    <div class="macro-list" id="macro-list"></div>
+  </section>
+
+  <!-- RIGHT: RISK GATING -->
+  <section class="card card-risk">
+    <h2 class="card-title"><span class="dot green"></span>Risk Gate Decisions</h2>
+    <div class="chart-wrap-sm"><canvas id="riskChart"></canvas></div>
+    <div class="risk-table" id="risk-table"></div>
+  </section>
+
+  <!-- FULL: PORTFOLIO -->
+  <section class="card card-portfolio">
+    <h2 class="card-title"><span class="dot cyan"></span>Active Positions</h2>
+    <div class="portfolio-grid">
+      <div class="chart-wrap"><canvas id="capitalChart"></canvas></div>
+      <table class="data-table" id="portfolio-table">
+        <thead><tr><th>Date</th><th>Asset</th><th>Direction</th><th>Size (USD)</th><th>Entry Ref</th><th>Reasoning</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FULL: BACKTEST PNL -->
+  <section class="card card-backtest">
+    <h2 class="card-title"><span class="dot red"></span>Backtest Performance</h2>
+    <div class="backtest-grid">
+      <div class="chart-wrap-lg"><canvas id="pnlChart"></canvas></div>
+      <div class="bt-metrics" id="bt-metrics"></div>
+    </div>
+  </section>
+
+  <!-- FULL: ABLATION -->
+  <section class="card card-ablation">
+    <h2 class="card-title"><span class="dot purple"></span>Ablation Study</h2>
+    <div class="chart-wrap-lg"><canvas id="ablationChart"></canvas></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>FIN580 Quantamental Investment &mdash; Multi-Agent Brent Crude Trading System &mdash; Built with Gemini AI, FinBERT, spaCy</p>
+</footer>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
