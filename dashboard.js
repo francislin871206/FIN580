@@ -36,8 +36,8 @@ const RISKS = [
 ];
 
 const TRADES = [
-  {date:"2026-05-08",asset:"Brent Crude Oil",direction:"SHORT",size_usd:50000,entry_price_ref:80.0,reasoning_trace:"Sized at $50,000.00 with risk multiplier 0.5"},
-  {date:"2026-05-08",asset:"Brent Crude Oil",direction:"SHORT",size_usd:50000,entry_price_ref:80.0,reasoning_trace:"Sized at $50,000.00 with risk multiplier 0.5"}
+  {date:"2026-05-08",asset:"Brent Crude Oil",direction:"SHORT",size_usd:40000,entry_price_ref:80.0,reasoning_trace:"A4 Risk Mult: 0.5x. A5 Sizing: 4.0% = $40,000. Cash remaining: $110,000 (Core: $800,000)."},
+  {date:"2026-05-08",asset:"Brent Crude Oil",direction:"SHORT",size_usd:30000,entry_price_ref:80.0,reasoning_trace:"A4 Risk Mult: 0.5x. A5 Sizing: 3.0% = $30,000. Cash remaining: $80,000 (Core: $800,000)."}
 ];
 
 const BACKTEST = {
@@ -56,6 +56,23 @@ const ABLATION = {
   no_risk:{capital_deployed:500000,approved:5,vetoed:0,trades:5},
   strict:{capital_deployed:250000,approved:5,vetoed:0,trades:5}
 };
+
+// ── ROTH IRA CORE HOLDINGS ──────────────────────────────────────
+const PORTFOLIO_STRUCTURE = {
+  total: 1000000, core_pct: 0.80, tactical_pct: 0.20, cash_buffer_pct: 0.15,
+  core_value: 800000, tactical_pool: 200000, min_cash_buffer: 150000
+};
+const CORE_HOLDINGS = [
+  {ticker:'FXAIX',name:'Fidelity 500 Index',type:'Index Fund'},
+  {ticker:'FZROX',name:'Fidelity Total Market',type:'Index Fund'},
+  {ticker:'BRK-B',name:'Berkshire Hathaway',type:'Equity'},
+  {ticker:'GOOG',name:'Alphabet',type:'Equity'},
+  {ticker:'VRT',name:'Vertiv Holdings',type:'Equity'},
+  {ticker:'GBX',name:'Greenbrier Companies',type:'Equity'},
+  {ticker:'MAIN',name:'Main Street Capital',type:'BDC / Dividend'},
+  {ticker:'WSM',name:'Williams-Sonoma',type:'Equity'},
+  {ticker:'BF-A',name:'Brown-Forman',type:'Equity'}
+];
 
 // ── CHART DEFAULTS ──────────────────────────────────────────────
 Chart.defaults.color = '#94a3b8';
@@ -188,16 +205,18 @@ function renderRisk() {
 
 // ── PORTFOLIO ───────────────────────────────────────────────────
 function renderPortfolio() {
-  const total = TRADES.reduce((a,t)=>a+t.size_usd, 0);
-  const remaining = 1000000 - total;
+  const deployed = TRADES.reduce((a,t)=>a+t.size_usd, 0);
+  const PS = PORTFOLIO_STRUCTURE;
+  const cashLeft = PS.tactical_pool - deployed;
 
+  // Capital allocation donut: Core / Deployed / Cash
   new Chart(document.getElementById('capitalChart'), {
     type: 'doughnut',
     data: {
-      labels: ['Deployed','Cash Reserve'],
+      labels: ['Core Holdings (80%)','Deployed Trades','Tactical Cash'],
       datasets: [{
-        data: [total, remaining],
-        backgroundColor: ['rgba(59,130,246,.7)','rgba(255,255,255,.06)'],
+        data: [PS.core_value, deployed, cashLeft],
+        backgroundColor: ['rgba(139,92,246,.5)','rgba(59,130,246,.7)','rgba(255,255,255,.08)'],
         borderWidth: 0, borderRadius: 4
       }]
     },
@@ -206,13 +225,14 @@ function renderPortfolio() {
       plugins: {
         legend: { display: false },
         tooltip: {
-          callbacks: { label: ctx => `$${ctx.parsed.toLocaleString()}` },
+          callbacks: { label: ctx => `${ctx.label}: $${ctx.parsed.toLocaleString()}` },
           backgroundColor: '#1e293b', cornerRadius: 8
         }
       }
     }
   });
 
+  // Trades table
   const tbody = document.querySelector('#portfolio-table tbody');
   tbody.innerHTML = TRADES.map(t => `<tr>
     <td>${t.date}</td>
@@ -222,6 +242,36 @@ function renderPortfolio() {
     <td style="font-family:var(--mono)">$${t.entry_price_ref.toFixed(2)}</td>
     <td style="color:var(--text3);font-size:.72rem">${t.reasoning_trace}</td>
   </tr>`).join('');
+
+  // Core holdings table
+  const holdingsEl = document.getElementById('core-holdings');
+  if (holdingsEl) {
+    holdingsEl.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px">
+        ${CORE_HOLDINGS.map(h => `<div style="padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.02);font-size:.75rem">
+          <span style="font-family:var(--mono);color:var(--purple);font-weight:600">${h.ticker}</span>
+          <span style="color:var(--text3);margin-left:6px">${h.name}</span>
+        </div>`).join('')}
+      </div>
+      <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+        <div style="padding:8px 14px;border-radius:8px;background:rgba(139,92,246,.08);font-size:.72rem">
+          <span style="color:var(--text3)">Core (80%)</span>
+          <span style="font-family:var(--mono);font-weight:600;margin-left:8px;color:var(--purple)">$${PS.core_value.toLocaleString()}</span>
+        </div>
+        <div style="padding:8px 14px;border-radius:8px;background:rgba(59,130,246,.08);font-size:.72rem">
+          <span style="color:var(--text3)">Deployed</span>
+          <span style="font-family:var(--mono);font-weight:600;margin-left:8px;color:var(--blue)">$${deployed.toLocaleString()}</span>
+        </div>
+        <div style="padding:8px 14px;border-radius:8px;background:rgba(255,255,255,.04);font-size:.72rem">
+          <span style="color:var(--text3)">Tactical Cash</span>
+          <span style="font-family:var(--mono);font-weight:600;margin-left:8px">$${cashLeft.toLocaleString()}</span>
+        </div>
+        <div style="padding:8px 14px;border-radius:8px;background:rgba(245,158,11,.08);font-size:.72rem">
+          <span style="color:var(--text3)">Min Buffer (15%)</span>
+          <span style="font-family:var(--mono);font-weight:600;margin-left:8px;color:var(--amber)">$${PS.min_cash_buffer.toLocaleString()}</span>
+        </div>
+      </div>`;
+  }
 }
 
 // ── BACKTEST PNL ────────────────────────────────────────────────

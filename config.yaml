@@ -35,6 +35,8 @@ agent4:
 agent5:
   initial_capital: 1000000.0   # $1M starting capital
   max_position_pct: 0.10       # max 10% of capital per trade
+  core_allocation_pct: 0.80    # 80% locked in core equity holdings (Roth IRA)
+  min_cash_buffer_pct: 0.15    # always maintain 15% cash reserve in tactical pool
 
 # ── File Paths (relative to project root) ─────────────────────────────────────
 paths:
